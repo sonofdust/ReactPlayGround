@@ -27,56 +27,61 @@ var template = React.createElement(
   React.createElement(
     "ol",
     null,
-    React.createElement(
-      "li",
-      null,
-      "Item one"
-    ),
-    React.createElement(
-      "li",
-      null,
-      "Item two"
-    ),
-    React.createElement(
-      "li",
-      null,
-      "Item three"
-    )
+    data.options.map(function (choice) {
+      return React.createElement(
+        "li",
+        { key: choice },
+        choice
+      );
+    })
   )
 );
 
-var user = {
-  name: "Nicholas",
-  age: 54,
-  location: "Saltlake City"
+var count = 0;
+var add = function add() {
+  count++;
+  renderCounterApp();
 };
-
-function getLocation(location) {
-  return location ? React.createElement(
-    "p",
-    null,
-    "Location: ",
-    location
-  ) : undefined;
-}
-
-var templateTwo = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    user.name ? user.name : "Anonymous"
-  ),
-  user.age && user.age >= 18 && React.createElement(
-    "p",
-    null,
-    "Age: ",
-    user.age
-  ),
-  getLocation(user.location)
-);
+var subtract = function subtract() {
+  count--;
+  renderCounterApp();
+};
+var reset = function reset() {
+  {
+    count = 0;
+    renderCounterApp();
+  }
+};
 
 var appRoot = document.getElementById("app");
 
-ReactDOM.render(template, appRoot);
+var renderCounterApp = function renderCounterApp() {
+  var templateTwo = React.createElement(
+    "div",
+    null,
+    React.createElement(
+      "h1",
+      null,
+      "Count: ",
+      count
+    ),
+    React.createElement(
+      "button",
+      { onClick: add },
+      "+1"
+    ),
+    React.createElement(
+      "button",
+      { onClick: subtract },
+      "-1"
+    ),
+    React.createElement(
+      "button",
+      { onClick: reset },
+      "reset"
+    )
+  );
+  ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp();
