@@ -54,54 +54,44 @@ class IndecisionApp extends React.Component {
   }
 }
 
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </div>
-    );
-  }
-}
+const Header = props => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
+};
 
-class Action extends React.Component {
-  render() {
-    return (
-      <div>
-        <button
-          disabled={!this.props.hasOptions}
-          onClick={this.props.handlePick}
-        >
-          What Should I do?
-        </button>
-      </div>
-    );
-  }
-}
+const Action = props => {
+  return (
+    <div>
+      <button disabled={!props.hasOptions} onClick={props.handlePick}>
+        What Should I do?
+      </button>
+    </div>
+  );
+};
 
-class Options extends React.Component {
-  render() {
-    return (
-      <div>
-        <button
-          disabled={this.props.options.length === 0}
-          onClick={this.props.handelDeleteOptions}
-        >
-          Remove All
-        </button>
-        {this.props.options.map((option, idx) => (
-          <Option option={option} key={idx} />
-        ))}
-      </div>
-    );
-  }
-}
-class Option extends React.Component {
-  render() {
-    return <div key={this.props.option}>{this.props.option}</div>;
-  }
-}
+const Options = props => {
+  return (
+    <div>
+      <button
+        disabled={props.options.length === 0}
+        onClick={props.handelDeleteOptions}
+      >
+        Remove All
+      </button>
+      {props.options.map((option, idx) => (
+        <Option option={option} key={idx} />
+      ))}
+    </div>
+  );
+};
+
+const Option = props => {
+  return <div key={props.option}>{props.option}</div>;
+};
 
 class AddOption extends React.Component {
   constructor(props) {
@@ -113,7 +103,6 @@ class AddOption extends React.Component {
     e.preventDefault();
     const option = e.target.elements.option.value.trim();
     const error = this.props.handleAddOption(option);
-    //    alert(error);
     this.setState(() => {
       return { error };
     });
