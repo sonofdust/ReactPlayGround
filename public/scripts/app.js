@@ -29,6 +29,21 @@ var IndecisionApp = function (_React$Component) {
   }
 
   _createClass(IndecisionApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log("Fetching Data");
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      console.log("Saving data");
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      console.log("componentDidUpdate()");
+    }
+  }, {
     key: "handelDeleteOptions",
     value: function handelDeleteOptions() {
       this.setState(function () {
@@ -62,7 +77,7 @@ var IndecisionApp = function (_React$Component) {
           })
         };
       });
-      console.log(this.state.options);;
+      console.log(this.state.options);
     }
   }, {
     key: "handlePick",

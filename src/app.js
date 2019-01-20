@@ -11,6 +11,16 @@ class IndecisionApp extends React.Component {
       options: props.options
     };
   }
+  componentDidMount() {
+    console.log("Fetching Data");
+  }
+  componentDidUpdate() {
+    console.log("Saving data");
+  }
+  componentWillUnmount() {
+    console.log("componentDidUpdate()");
+  }
+
   handelDeleteOptions() {
     this.setState(() => ({
       options: []
@@ -32,7 +42,7 @@ class IndecisionApp extends React.Component {
     this.setState(prevState => ({
       options: prevState.options.filter(item => item !== option)
     }));
-    console.log(this.state.options);;
+    console.log(this.state.options);
   }
 
   handlePick() {
