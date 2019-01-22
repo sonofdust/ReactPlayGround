@@ -23,7 +23,7 @@ var IndecisionApp = function (_React$Component) {
     _this.state = {
       title: props.title,
       subtitle: props.subtitle,
-      options: props.options
+      options: []
     };
     return _this;
   }
@@ -31,17 +31,29 @@ var IndecisionApp = function (_React$Component) {
   _createClass(IndecisionApp, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log("Fetching Data");
+      try {
+        var options = JSON.parse(localStorage.getItem("options"));
+        if (options) {
+          this.setState(function () {
+            return { options: options };
+          });
+        }
+      } catch (e) {}
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      console.log("Saving data");
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.options.lehgth !== this.state.options.length) {
+        var json = JSON.stringify(this.state.options);
+        localStorage.setItem("options", json);
+      }
+      //    console.log(prevState);
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      console.log("componentDidUpdate()");
+      //    console.log("componentDidUpdate()");
+      //    localStorage.setItem();
     }
   }, {
     key: "handelDeleteOptions",
@@ -77,7 +89,7 @@ var IndecisionApp = function (_React$Component) {
           })
         };
       });
-      console.log(this.state.options);
+      //    console.log(this.state.options);
     }
   }, {
     key: "handlePick",
@@ -111,8 +123,7 @@ var IndecisionApp = function (_React$Component) {
 
 IndecisionApp.defaultProps = {
   title: "Indecision",
-  subtitle: "Put your life in the hands of a computer.",
-  options: []
+  subtitle: "Put your life in the hands of a computer."
 };
 
 var Header = function Header(props) {
@@ -157,6 +168,11 @@ var Options = function Options(props) {
         onClick: props.handelDeleteOptions
       },
       "Remove All"
+    ),
+    props.options.length === 0 && React.createElement(
+      "p",
+      null,
+      "Please add an options to get started."
     ),
     props.options.map(function (option, idx) {
       return React.createElement(Option, {
@@ -205,6 +221,9 @@ var AddOption = function (_React$Component2) {
       this.setState(function () {
         return { error: error };
       });
+      if (!error) {
+        e.target.elements.option.value = "";
+      }
     }
   }, {
     key: "render",
