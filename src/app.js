@@ -1,3 +1,6 @@
-import validator from "validator";
+import React from "react";
+import ReactDom from "react-dom";
 
-console.log(validator.isEmail('Nicholas@hotmail.con'));
+const template = React.createElement("p", {}, "Nicholas D. Roman");
+
+ReactDom.render(template, document.getElementById("app"));
