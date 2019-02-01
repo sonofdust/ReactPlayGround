@@ -3,11 +3,13 @@ import AddOption from "./AddOption";
 import Header from "./Header";
 import Action from "./Action";
 import Options from "./Options";
+import OptionModal from "./OptionModal";
 
 class IndecisionApp extends React.Component {
   state = {
     title: "Indecision",
     subtitle: "Put your life in the hands of a computer.",
+    selectedOption: undefined,
     options: []
   };
 
@@ -55,23 +57,38 @@ class IndecisionApp extends React.Component {
 
   handlePick = () => {
     let randomIndex = Math.floor(Math.random() * this.state.options.length);
-    alert(this.state.options[randomIndex]);
+    this.setState(() => ({
+      selectedOption: this.state.options[randomIndex]
+    }));
+  };
+  handleClearSelectedOption = () => {
+    this.setState(() => ({
+      selectedOption: undefined
+    }));
   };
 
   render() {
     return (
-      <div>
+      <div className="body__background">
         <Header title={this.state.title} subtitle={this.state.subtitle} />
-        <Action
-          hasOptions={this.state.options.length > 0}
-          handlePick={this.handlePick}
-        />
-        <Options
-          options={this.state.options}
-          handelDeleteOption={this.handelDeleteOption}
-          handelDeleteOptions={this.handelDeleteOptions}
-        />
-        <AddOption handleAddOption={this.handleAddOption} />
+        <div className="container">
+          <Action
+            hasOptions={this.state.options.length > 0}
+            handlePick={this.handlePick}
+          />
+          <div className="widget">
+            <Options
+              options={this.state.options}
+              handelDeleteOption={this.handelDeleteOption}
+              handelDeleteOptions={this.handelDeleteOptions}
+            />
+            <AddOption handleAddOption={this.handleAddOption} />
+          </div>
+          <OptionModal
+            selectedOption={this.state.selectedOption}
+            handleClearSelectedOption={this.handleClearSelectedOption}
+          />
+        </div>
       </div>
     );
   }
