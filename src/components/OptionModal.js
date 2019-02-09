@@ -13,7 +13,9 @@ const OptionModal = props => (
     {props.selectedOption && (
       <p className="modal__body">{props.selectedOption}</p>
     )}
-    <button className="button" onClick={props.handleClearSelectedOption}>Ok</button>
+    <button className="button" onClick={props.handleClearSelectedOption}>
+      Ok
+    </button>
   </Modal>
 );
 
